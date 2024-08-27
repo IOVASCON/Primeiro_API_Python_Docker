@@ -1,83 +1,52 @@
-# FastAPI
-### Quem é o FastAPi?
-Framework FastAPI, alta performance, fácil de aprender, fácil de codar, pronto para produção.
-FastAPI é um moderno e rápido (alta performance) framework web para construção de APIs com Python 3.6 ou superior, baseado nos type hints padrões do Python.
+# Workout API
 
-### Async
-Código assíncrono apenas significa que a linguagem tem um jeito de dizer para o computador / programa que em certo ponto, ele terá que esperar por algo para finalizar em outro lugar
+## Descrição
 
-# Projeto
-## WorkoutAPI
+A Workout API é uma aplicação construída com FastAPI para gerenciar informações de treinamento, atletas, categorias de exercícios e centros de treinamento. Utiliza PostgreSQL como sistema de banco de dados e Docker para simplificar a configuração e a implantação.
 
-Esta é uma API de competição de crossfit chamada WorkoutAPI (isso mesmo rs, eu acabei unificando duas coisas que gosto: codar e treinar). É uma API pequena, devido a ser um projeto mais hands-on e simplificado nós desenvolveremos uma API de poucas tabelas, mas com o necessário para você aprender como utilizar o FastAPI.
+## Tecnologias Utilizadas
 
-## Modelagem de entidade e relacionamento - MER
-![MER](/mer.jpg "Modelagem de entidade e relacionamento")
+- **FastAPI**: Framework web moderno e rápido (alta performance) para construção de APIs com Python 3.7+.
+- **PostgreSQL**: Sistema de gerenciamento de banco de dados robusto e de alta performance.
+- **Docker**: Plataforma de contêineres que facilita a criação, implantação e execução de aplicações.
 
-## Stack da API
+## Instalação e Execução
 
-A API foi desenvolvida utilizando o `fastapi` (async), junto das seguintes libs: `alembic`, `SQLAlchemy`, `pydantic`. Para salvar os dados está sendo utilizando o `postgres`, por meio do `docker`.
+### Pré-Requisitos
 
-## Execução da API
+- Docker
+- Docker Compose
 
-Para executar o projeto, utilizei a [pyenv](https://github.com/pyenv/pyenv), com a versão 3.11.4 do `python` para o ambiente virtual.
+### Instruções de Instalação
 
-Caso opte por usar pyenv, após instalar, execute:
+1.Clone o repositório:
 
-```bash
-pyenv virtualenv 3.11.4 workoutapi
-pyenv activate workoutapi
-pip install -r requirements.txt
-```
-Para subir o banco de dados, caso não tenha o [docker-compose](https://docs.docker.com/compose/install/linux/) instalado, faça a instalação e logo em seguida, execute:
+   git clone <https://seu-repositorio/workout_api.git>
 
-```bash
-make run-docker
-```
-Para criar uma migration nova, execute:
+2.Navegue até o diretório do projeto:
 
-```bash
-make create-migrations d="nome_da_migration"
-```
+cd workout_api
 
-Para criar o banco de dados, execute:
+3.Construa e execute os contêineres com Docker Compose:
 
-```bash
-make run-migrations
-```
+docker-compose up --build
 
-## API
+Isso irá iniciar os serviços app e db, disponibilizando a API no endereço <http://localhost:8000>.
 
-Para subir a API, execute:
-```bash
-make run
-```
-e acesse: http://127.0.0.1:8000/docs
+Uso
 
-# Desafio Final
-    - adicionar query parameters nos endpoints
-        - atleta
-            - nome
-            - cpf
-    - customizar response de retorno de endpoints
-        - get all
-            - atleta
-                - nome
-                - centro_treinamento
-                - categoria
-    - Manipular exceção de integridade dos dados em cada módulo/tabela
-        - sqlalchemy.exc.IntegrityError e devolver a seguinte mensagem: “Já existe um atleta cadastrado com o cpf: x”
-        - status_code: 303
-    - Adicionar paginação utilizando a lib: fastapi-pagination
-        - limit e offset
-# Referências
+Após iniciar o serviço, você pode acessar a documentação da API pelo Swagger UI em <http://localhost:8000/docs>.
+Desenvolvimento
+Estrutura do Projeto
 
-FastAPI: https://fastapi.tiangolo.com/
+*/workout_api: Contém todos os módulos Python para a aplicação.
+*docker-compose.yml: Configura os serviços necessários para a aplicação.
+*Dockerfile: Instruções para construir a imagem Docker da aplicação.
 
-Pydantic: https://docs.pydantic.dev/latest/
+Adicionando Novas Dependências
 
-SQLAlchemy: https://docs.sqlalchemy.org/en/20/
+Para adicionar novas dependências Python:
 
-Alembic: https://alembic.sqlalchemy.org/en/latest/
-
-Fastapi-pagination: https://uriyyo-fastapi-pagination.netlify.app/
+1. Adicione a dependência ao arquivo requirements.txt.
+2. Reconstrua o contêiner da aplicação:
+docker-compose up --build
